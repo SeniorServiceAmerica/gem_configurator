@@ -22,11 +22,15 @@ module GemConfigurator
       @settings = {}          
     end
 
-    if defined?(DEFAULT_SETTINGS)
-      @settings = DEFAULT_SETTINGS.merge(@settings)
+    if self.respond_to?(:default_settings,true)
+      @settings = default_settings.merge(@settings)
     else
       @settings
     end
+  end
+  
+  def test
+    self.private_methods.sort
   end
 
   def parse_yaml(path)
