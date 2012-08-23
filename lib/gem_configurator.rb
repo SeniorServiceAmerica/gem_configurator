@@ -2,6 +2,8 @@ require "gem_configurator/version"
 
 module GemConfigurator
   
+  attr_reader :settings
+  
   def config_path
     config_file_name = "#{self.class.to_s.underscore}.yml"
     if defined?(Rails) && File.exists?(Rails.root.join("config",config_file_name))
