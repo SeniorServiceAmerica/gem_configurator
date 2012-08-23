@@ -1,4 +1,5 @@
 require "gem_configurator/version"
+require 'active_support/inflector'
 
 module GemConfigurator
   
