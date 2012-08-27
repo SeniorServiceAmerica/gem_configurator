@@ -2,8 +2,10 @@ require "gem_configurator/version"
 require 'active_support/inflector'
 
 module GemConfigurator
-  
+
   attr_reader :settings
+  
+  private
   
   def config_path
     config_file_name = "#{self.class.to_s.underscore}.yml"
@@ -30,10 +32,6 @@ module GemConfigurator
     end
   end
   
-  def test
-    self.private_methods.sort
-  end
-
   def parse_yaml(path)
     path ? YAML.load_file(path) : nil
   end
