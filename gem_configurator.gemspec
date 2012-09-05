@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Ian Whitney", "Davin Lagerroos"]
   gem.email         = ["iwhitney@ssa-i.org", "dlagerroos@ssa-i.org"]
   gem.description   = %q{Implements a standard way of using yml files to configure gems.}
-  gem.summary       = %q{Implements a standard way of using yml files to configure gems.}
+  gem.summary       = %q{Provides a simple, uniform way to configure a gem with a yaml file. Designed to work within a Rails app.}
   gem.homepage      = "https://github.com/SeniorServiceAmerica/gem_configurator"
 
   gem.files         = `git ls-files`.split($\)
