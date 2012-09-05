@@ -14,5 +14,5 @@ Gem::Specification.new do |gem|
   gem.name          = "gem_configurator"
   gem.require_paths = ["lib"]
   gem.version       = GemConfigurator::VERSION
-  gem.add_dependency('activesupport', '>= 3.0.0')
+  gem.add_dependency('activesupport')
 end
