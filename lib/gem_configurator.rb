@@ -9,8 +9,10 @@ module GemConfigurator
   
   def config_path
     config_file_name = "#{self.class.to_s.underscore}.yml"
-    if defined?(Rails) && File.exists?(Rails.root.join("config",config_file_name))
+    if using_rails? && File.exists?(Rails.root.join("config",config_file_name))
       Rails.root.join("config",config_file_name)
+    elsif File.exists?("config/#{config_file_name}")
+      File.path("config/#{config_file_name}")
     else
       nil
     end
@@ -18,9 +20,10 @@ module GemConfigurator
   
   def configure
     raw_settings = parse_yaml(config_path())
+    environment = using_rails? ? Rails.env : 'development'
 
     if raw_settings
-      @settings = raw_settings[Rails.env]
+      @settings = raw_settings[environment]
     else
       @settings = {}          
     end
@@ -34,5 +37,9 @@ module GemConfigurator
   
   def parse_yaml(path)
     path ? YAML.load_file(path) : nil
+  end
+  
+  def using_rails?
+    defined?(Rails)
   end
 end
