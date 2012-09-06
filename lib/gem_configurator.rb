@@ -1,5 +1,6 @@
 require "gem_configurator/version"
 require 'active_support/inflector'
+require 'erb'
 
 module GemConfigurator
 
@@ -8,7 +9,7 @@ module GemConfigurator
   private
   
   def config_path
-    config_file_name = "#{self.class.to_s.underscore}.yml"
+    config_file_name = "#{self.class.to_s.demodulize.underscore}.yml"
     if using_rails? && File.exists?(Rails.root.join("config",config_file_name))
       Rails.root.join("config",config_file_name)
     elsif File.exists?("config/#{config_file_name}")
@@ -21,13 +22,13 @@ module GemConfigurator
   def configure
     raw_settings = parse_yaml(config_path())
     environment = using_rails? ? Rails.env : 'development'
-
+    
     if raw_settings
       @settings = raw_settings[environment]
     else
       @settings = {}          
     end
-
+    
     if self.respond_to?(:default_settings,true)
       @settings = default_settings.merge(@settings)
     else
@@ -36,7 +37,7 @@ module GemConfigurator
   end
   
   def parse_yaml(path)
-    path ? YAML.load_file(path) : nil
+    path ? YAML.load(ERB.new(File.read(path)).result) : nil
   end
   
   def using_rails?
