@@ -46,7 +46,24 @@ Example yaml file:
     ...
 ```    
 
-On instantiation, the settings for your current environment are placed in an instance variable called @settings. Retrieve the settings with `@settings[:setting_name]`
+On instantiation, the settings for your current environment are placed in an instance variable called @settings. Retrieve the settings with `@settings['setting name']`
+
+If you want to use symbol keys for your settings, change your yaml file to this:
+
+```yaml
+  development:
+    :[setting name]: [setting value]
+    ...  
+```
+
+Then retrieve the setting with `@settings[:setting name]`
+
+The gem parses ERB, so if you're storing configuration settings in environment variables, this works:
+
+```yaml
+  development:
+    redis_uri: <%= ENV['redis_uri'] %>
+```
 
 ### Default Settings
 
@@ -61,7 +78,7 @@ If you want your object to have default settings, simply define a `default_setti
       ...
     end
     
-    def defualt_settings
+    def default_settings
       {:setting_name => setting_value}
     end
 ```
